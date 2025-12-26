@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking System - Order History</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">OrderTrack</h1>
+                <p class="tagline">Track your orders in real-time</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Order History</h2>
+                <button class="btn btn-primary" id="createOrderBtn">
+                    <span class="btn-icon">+</span>
+                    Create New Order
+                </button>
+            </div>
+
+            <!-- Filters and Search -->
+            <div class="filters-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search orders..." />
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="filter-group">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">All Statuses</option>
+                        <option value="0">Order Placed</option>
+                        <option value="1">Packed</option>
+                        <option value="2">Shipped</option>
+                        <option value="3">Delivered</option>
+                    </select>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                    <button class="btn btn-outline" id="clearAllBtn">🗑️ Clear All</button>
+                    <button class="btn btn-outline" id="exportBtn">📥 Export</button>
+                    <button class="btn btn-outline" id="refreshBtn">🔄 Refresh</button>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="stats-container" id="statsContainer">
+                <div class="stat-card" style="grid-column: span 1;">
+                    <span class="stat-number" id="statTotal">0</span>
+                    <span class="stat-label">Total Orders</span>
+                    <div class="stat-trend">📊</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statPlaced">0</span>
+                    <span class="stat-label">Placed</span>
+                    <div class="stat-trend">📝</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statPacked">0</span>
+                    <span class="stat-label">Packed</span>
+                    <div class="stat-trend">📦</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statShipped">0</span>
+                    <span class="stat-label">Shipped</span>
+                    <div class="stat-trend">🚚</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="statDelivered">0</span>
+                    <span class="stat-label">Delivered</span>
+                    <div class="stat-trend">✅</div>
+                </div>
+            </div>
+
+            <!-- Orders Container -->
+            <div class="orders-container" id="ordersContainer">
+                <!-- Orders will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">📦</div>
+                <h3>No Orders Yet</h3>
+                <p>Create your first order to start tracking</p>
+                <button class="btn btn-secondary" id="createFirstOrderBtn">Create Order</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 OrderTrack. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <span class="chatbot-avatar">🤖</span>
+                <div>
+                    <h4>OrderTrack Assistant</h4>
+                    <span class="chatbot-status">Online</span>
+                </div>
+            </div>
+            <button class="chatbot-minimize" id="minimizeChatbot">−</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>👋 Hi! I'm your OrderTrack assistant. How can I help you today?</p>
+                    <div class="quick-replies">
+                        <button class="quick-reply" data-action="orderStatus">Check Order Status</button>
+                        <button class="quick-reply" data-action="createOrder">Create New Order</button>
+                        <button class="quick-reply" data-action="help">Help & FAQ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your message..." />
+            <button id="chatbotSend">
+                <span>📤</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <span class="chat-icon">💬</span>
+        <span class="chat-badge" id="chatBadge">1</span>
+    </button>
+
+    <!-- Create Order Modal -->
+    <div class="modal" id="createOrderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Order</h3>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createOrderForm">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" required placeholder="e.g., Wireless Headphones">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" required placeholder="e.g., John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryAddress">Delivery Address</label>
+                        <textarea id="deliveryAddress" required placeholder="Enter delivery address"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

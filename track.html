@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking System - Track Order</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <a href="index.html" class="back-link">← Back to Orders</a>
+                <h1 class="logo">OrderTrack</h1>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content tracking-page">
+            <!-- Order Details Card -->
+            <div class="order-details-card" id="orderDetailsCard">
+                <div class="order-header">
+                    <div>
+                        <h2 id="orderIdDisplay">Order #12345</h2>
+                        <p class="order-date" id="orderDateDisplay">Placed on: Jan 15, 2025</p>
+                    </div>
+                    <div class="status-badge" id="statusBadge">Order Placed</div>
+                </div>
+                
+                <div class="order-info">
+                    <div class="info-item">
+                        <span class="info-label">Product:</span>
+                        <span class="info-value" id="productNameDisplay">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Customer:</span>
+                        <span class="info-value" id="customerNameDisplay">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Delivery Address:</span>
+                        <span class="info-value" id="deliveryAddressDisplay">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="progress-tracker" id="progressTracker">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <div class="progress-steps">
+                    <div class="step" data-step="0">
+                        <div class="step-icon">
+                            <span class="icon">📝</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Order Placed</h4>
+                            <p class="step-date" id="step0Date">-</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="1">
+                        <div class="step-icon">
+                            <span class="icon">📦</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Packed</h4>
+                            <p class="step-date" id="step1Date">-</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="2">
+                        <div class="step-icon">
+                            <span class="icon">🚚</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Shipped</h4>
+                            <p class="step-date" id="step2Date">-</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step" data-step="3">
+                        <div class="step-icon">
+                            <span class="icon">✅</span>
+                        </div>
+                        <div class="step-content">
+                            <h4>Delivered</h4>
+                            <p class="step-date" id="step3Date">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons" id="actionButtons">
+                <button class="btn btn-outline" id="autoProgressBtn">
+                    <span class="btn-icon">⏯️</span>
+                    Auto Progress
+                </button>
+                <button class="btn btn-primary" id="nextStageBtn">
+                    <span class="btn-icon">→</span>
+                    Move to Next Stage
+                </button>
+                <button class="btn btn-outline" id="printBtn">
+                    <span class="btn-icon">🖨️</span>
+                    Print
+                </button>
+            </div>
+
+            <!-- Delivery Notes -->
+            <div class="delivery-notes-section" id="deliveryNotesSection">
+                <h3>Delivery Notes</h3>
+                <textarea id="deliveryNotes" placeholder="Add notes about this delivery..." rows="4"></textarea>
+                <button class="btn btn-secondary" id="saveNotesBtn">Save Notes</button>
+            </div>
+
+            <!-- Order Not Found -->
+            <div class="not-found" id="notFound" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <h3>Order Not Found</h3>
+                <p>The order you're looking for doesn't exist.</p>
+                <a href="index.html" class="btn btn-primary">Go to Order History</a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 OrderTrack. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <span class="chatbot-avatar">🤖</span>
+                <div>
+                    <h4>OrderTrack Assistant</h4>
+                    <span class="chatbot-status">Online</span>
+                </div>
+            </div>
+            <button class="chatbot-minimize" id="minimizeChatbot">−</button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <p>👋 Hi! I'm your OrderTrack assistant. How can I help you today?</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your message..." />
+            <button id="chatbotSend">
+                <span>📤</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <span class="chat-icon">💬</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html>
